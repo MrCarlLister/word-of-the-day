@@ -1,6 +1,6 @@
 import "./styles.css";
 import Row from "./row.js";
-// import Answer from "./answer.js";
+import Keyboard from "./keyboard.js";
 import Dictionary from "./dictionary.js";
 import React, { useEffect, useState } from "react";
 
@@ -8,13 +8,16 @@ function Board() {
   const [boardComplete, setBoardComplete] = useState([]);
   const [theBoard, setTheBoard] = useState([]);
   const [theBoardState, setTheBoardState] = useState([]);
+  const [theKeyboardState, setTheKeyboardState] = useState([]);
   const [rowLetters, setRowLetters] = useState([]);
   const [dailyWord, setDailyWord] = useState([]);
+  const keyboard = Keyboard();
 
   function resetBoard() {
     setBoardComplete([]);
     setTheBoard([]);
     setTheBoardState([]);
+    setTheKeyboardState([]);
     setRowLetters([]);
     setDailyWord([]);
   }
@@ -30,6 +33,11 @@ function Board() {
         return e;
       }
     });
+  }
+
+  function createKeyboard(){
+    const keyboard = Keyboard();
+    
   }
 
   function checkWordCorrect() {
@@ -60,6 +68,10 @@ function Board() {
       }
 
       rowResult.push(squareClass);
+    //   alert(letter + ' = ' +squareClass)
+      setTheKeyboardState((letter) => {
+        return [...letter, squareClass];
+      });
     });
 
     if (noCorrect == 5) {
@@ -113,6 +125,7 @@ function Board() {
     // Add the event listener to the document
     document.addEventListener("keyup", handleKeyUp);
     setAnswer();
+    // createKeyboard();
     console.log(dailyWord);
 
     // Cleanup the event listener when the component unmounts
@@ -129,13 +142,28 @@ function Board() {
         }`}</h2>
         <button onClick={resetBoard}>Play again?</button>
       </div>
-      <h2 className="headline">Guess the word</h2>
-      <div className="board">
-        {theBoard.map((row, index) => (
-          <Row key={index} letters={row} active={theBoardState[index]} />
+      <section className="play-area">
+        <h2 className="headline">Guess the word</h2>
+        <div className="board">
+            {theBoard.map((row, index) => (
+            <Row key={index} letters={row} active={theBoardState[index]} />
+            ))}
+            <Row letters={rowLetters} />
+        </div>
+
+      </section>
+      <aside className="sidebar">
+        <div className="keyboard">{theKeyboardState}
+        {keyboard.map((row, index) => (
+                <div key={index} className="keyboard-row">
+
+            {row.map((letter, i) => (
+                <button key={i} data-id={letter.key} className={letter.status}>{letter.key}</button>
+            ))}
+            </div>
         ))}
-        <Row letters={rowLetters} />
-      </div>
+        </div>
+        </aside>
     </div>
   );
 }

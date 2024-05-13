@@ -17,7 +17,41 @@ body {
   justify-content: center;
 }
 
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.keyboard-row {
+    gap:1px;
+    display: flex;
+}
+.keyboard-row button {
+    border:none;
+    padding:.5rem;
+}
 .wrap {
+    display:flex;
+    flex-direction: row;
+    gap:3rem;
+}
+.sidebar{
+    text-align: left;
+    max-width: 300px;
+}
+
+.sidebar-headline {
+    font-size: 2rem;
+    text-transform: uppercase;
+    
+}
+
+.play-area {
   display: flex;
   flex-direction: column;
   align-items: center;

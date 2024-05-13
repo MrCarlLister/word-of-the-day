@@ -11,7 +11,6 @@ export default function Row({ letters, active }) {
 
   // Iterate through the lettersArray using a for loop
   for (let i = 0; i < 5; i++) {
-    let squareClass = "";
 
     squareComponents.push(
       <Square key={i} letter={lettersArray[i]} active={activeArray[i]} />
